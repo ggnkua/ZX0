@@ -1,3 +1,17 @@
+## Additions to this fork
+
+This fork of ZX0 adds a header at the start of the packed file, so a program
+trying to depack the files does not need external information (such as
+original file size or delta value). All values are in big endian format and
+the header is as follows:
+
+|offset|size|description|
+|:---: |:--:|:--:       |
+|0     |4   |Magic value of 0x5a583021 or `ZX0!`|
+|4     |4   |packed size|
+|8     |4   |unpacked size|
+|12    |2   |delta      |
+
 # ZX0
 
 **ZX0** is an optimal data compressor for a custom

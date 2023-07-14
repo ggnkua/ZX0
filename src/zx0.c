@@ -162,6 +162,18 @@ int main(int argc, char *argv[]) {
         reverse(output_data, output_data+output_size-1);
 
     /* write output file */
+    if (1) // Header
+    {
+#define byteswap32(x) ((x >> 24) | ((x >> 8) & 0xff00) | ((x << 8) & 0xff0000) | (x << 24))
+#define byteswap16(x) ((x >> 8) | (x << 8))
+        fwrite("ZX0!", 1, 4, ofp);
+        unsigned long temp = byteswap32(output_size);
+        fwrite(&temp, 1, 4, ofp);
+        temp = byteswap32(input_size);
+        fwrite(&temp, 1, 4, ofp);
+        unsigned short temp2 = byteswap16(delta);
+        fwrite(&temp2, 1, 2, ofp);
+    }
     if (fwrite(output_data, sizeof(char), output_size, ofp) != output_size) {
         fprintf(stderr, "Error: Cannot write output file %s\n", output_name);
         exit(1);

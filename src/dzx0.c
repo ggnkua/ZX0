@@ -196,6 +196,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Error: Cannot access input file %s\n", input_name);
         exit(1);
     }
+    fseek(ifp, 12, SEEK_SET);
 
     /* check output file */
     if (!forced_mode && fopen(output_name, "rb") != NULL) {
